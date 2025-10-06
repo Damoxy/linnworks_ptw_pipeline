@@ -82,3 +82,4 @@ Additional reference: [Linnworks ERD Diagram](https://docs.linnworks.com/resourc
 - Enhance **data validation tests** for consistency across staging and transformed layers.  
 - Follow **Same naming nomenclature**  acroos all tables 
 - Maintain **version control** for all schema and migration scripts.  
+- Automate Failure Logs to emails
