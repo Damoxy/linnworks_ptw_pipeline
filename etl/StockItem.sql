@@ -31,7 +31,7 @@ INSERT INTO lw.StockItem (
     Source
 )
 SELECT 
-    TRY_CAST(JSON_VALUE(CAST(s.Suppliers AS nvarchar(max)), '$[0].StockItemId') AS uniqueidentifier) AS pkStockItemID,
+    TRY_CAST(s.StockItemId AS uniqueidentifier) AS pkStockItemID,
     s.ItemTitle,
     s.ItemNumber,
     s.ItemChannelDescriptions AS ItemDescription,
