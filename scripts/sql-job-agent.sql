@@ -672,7 +672,7 @@ GROUP BY
 		@database_name=N'linnworks', 
 		@flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [PostalServices]    Script Date: 10/5/2025 12:32:20 PM ******/
+/****** Object:  Step [PostalServices]     ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'PostalServices', 
 		@step_id=9, 
 		@cmdexec_success_code=0, 
@@ -716,7 +716,7 @@ WHERE
 		@database_name=N'linnworks', 
 		@flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Order_AdditionalInfo]    Script Date: 10/5/2025 12:32:20 PM ******/
+/****** Object:  Step [Order_AdditionalInfo]     ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Order_AdditionalInfo', 
 		@step_id=10, 
 		@cmdexec_success_code=0, 
@@ -771,7 +771,7 @@ WHERE NOT EXISTS (
 		@database_name=N'linnworks', 
 		@flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Supplier]    Script Date: 10/5/2025 12:32:20 PM ******/
+/****** Object:  Step [Supplier]     ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Supplier', 
 		@step_id=11, 
 		@cmdexec_success_code=0, 
@@ -822,7 +822,7 @@ WHERE RowNum = 1;',
 		@database_name=N'linnworks', 
 		@flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [ItemSupplier]    Script Date: 10/5/2025 12:32:20 PM ******/
+/****** Object:  Step [ItemSupplier]     ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'ItemSupplier', 
 		@step_id=12, 
 		@cmdexec_success_code=0, 
@@ -905,7 +905,7 @@ CROSS APPLY
 		@database_name=N'linnworks', 
 		@flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [OrderPackaging]    Script Date: 10/5/2025 12:32:20 PM ******/
+/****** Object:  Step [OrderPackaging]     ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'OrderPackaging', 
 		@step_id=13, 
 		@cmdexec_success_code=0, 
@@ -975,7 +975,7 @@ WHERE
 		@database_name=N'linnworks', 
 		@flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [StockItem_ExtendedProperties]    Script Date: 10/5/2025 12:32:20 PM ******/
+/****** Object:  Step [StockItem_ExtendedProperties]     ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'StockItem_ExtendedProperties', 
 		@step_id=14, 
 		@cmdexec_success_code=0, 
@@ -1016,7 +1016,7 @@ WHERE d.ItemExtendedProperties IS NOT NULL;
 		@database_name=N'linnworks', 
 		@flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [StockLocation]    Script Date: 10/5/2025 12:32:20 PM ******/
+/****** Object:  Step [StockLocation]     ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'StockLocation', 
 		@step_id=15, 
 		@cmdexec_success_code=0, 
@@ -1073,7 +1073,7 @@ WHERE
 		@database_name=N'linnworks', 
 		@flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [ListCountries]    Script Date: 10/5/2025 12:32:20 PM ******/
+/****** Object:  Step [ListCountries]     ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'ListCountries', 
 		@step_id=16, 
 		@cmdexec_success_code=0, 
@@ -1116,7 +1116,7 @@ WHERE
 		@database_name=N'linnworks', 
 		@flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [StockLevel]    Script Date: 10/5/2025 12:32:20 PM ******/
+/****** Object:  Step [StockLevel]     ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'StockLevel', 
 		@step_id=17, 
 		@cmdexec_success_code=0, 
@@ -1177,7 +1177,7 @@ WITH (
 		@database_name=N'linnworks', 
 		@flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [FinalOrderItems]    Script Date: 10/5/2025 12:32:20 PM ******/
+/****** Object:  Step [FinalOrderItems]     ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'FinalOrderItems', 
 		@step_id=18, 
 		@cmdexec_success_code=0, 
@@ -1267,7 +1267,7 @@ JOIN [linnworks].[lw].[OrderItem_full] OI
 		@database_name=N'linnworks', 
 		@flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [OrderSales]    Script Date: 10/5/2025 12:32:20 PM ******/
+/****** Object:  Step [OrderSales]     ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'OrderSales', 
 		@step_id=19, 
 		@cmdexec_success_code=0, 
@@ -1340,7 +1340,7 @@ JOIN
 		@database_name=N'linnworks', 
 		@flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [purchasing]    Script Date: 10/5/2025 12:32:20 PM ******/
+/****** Object:  Step [purchasing]     ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'purchasing', 
 		@step_id=20, 
 		@cmdexec_success_code=0, 
