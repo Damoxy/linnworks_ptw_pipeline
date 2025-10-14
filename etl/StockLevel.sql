@@ -1,8 +1,8 @@
-INSERT INTO lw.StockLevel (
+INSERT INTO [linnworks].[lw].[StockLevel] (
     fkStockItemId,
     fkStockLocationId,
     Quantity,
-    OnOrder,
+    OnOrder,                
     CurrentStockValue,
     MinimumLevel,
     AutoAdjust,
@@ -17,7 +17,7 @@ SELECT
     j.StockItemId,
     j.StockLocationId,
     j.StockLevel,
-    j.InOrders,
+    j.Due,                   
     j.StockValue,
     j.MinimumLevel,
     j.AutoAdjust,
@@ -33,7 +33,7 @@ WITH (
     StockItemId UNIQUEIDENTIFIER '$.StockItemId',
     StockLocationId UNIQUEIDENTIFIER '$.Location.StockLocationId',
     StockLevel INT '$.StockLevel',
-    InOrders INT '$.InOrders',
+    Due INT '$.Due',               
     StockValue FLOAT '$.StockValue',
     MinimumLevel INT '$.MinimumLevel',
     AutoAdjust BIT '$.AutoAdjust',
@@ -43,4 +43,4 @@ WITH (
     PendingUpdate BIT '$.PendingUpdate',
     InOrderBook INT '$.InOrderBook',
     JIT BIT '$.JIT'
-) AS j
+) AS j;
