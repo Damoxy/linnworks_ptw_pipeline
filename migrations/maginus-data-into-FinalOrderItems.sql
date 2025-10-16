@@ -15,9 +15,9 @@ INSERT INTO [linnworks].[lw].[final_orderitems] (
 SELECT
     PRODUCT_CODE AS final_sku,
     ACTUAL_QUANTITY AS final_quantity,
-    (UNIT_PRICE - VAT_AMOUNT) AS final_price,
+    (UNIT_PRICE - (VAT_AMOUNT/ACTUAL_QUANTITY)) AS final_price,
     UNIT_COST AS final_cost,
-    (UNIT_PRICE * ACTUAL_QUANTITY) AS TotalFinalPrice,
+    (UNIT_PRICE * ACTUAL_QUANTITY) - VAT_AMOUNT AS TotalFinalPrice,
     (UNIT_COST * ACTUAL_QUANTITY) AS TotalFinalCost,
     DELIVERY_DATE AS final_date,
     KIT_PRODUCT_CODE AS kitsku,
