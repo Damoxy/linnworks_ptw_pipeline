@@ -21,7 +21,7 @@ SELECT
     (UNIT_COST * ACTUAL_QUANTITY) AS TotalFinalCost,
     DELIVERY_DATE AS final_date,
     KIT_PRODUCT_CODE AS kitsku,
-    'maginus' AS source
+    'maginus' AS source,
     NULL AS Title,
     SALES_DOCUMENT_NUM AS OrderId,
     WarehouseKey AS LocationId
