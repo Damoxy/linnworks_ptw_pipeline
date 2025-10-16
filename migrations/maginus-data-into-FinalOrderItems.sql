@@ -7,7 +7,10 @@ INSERT INTO [linnworks].[lw].[final_orderitems] (
     TotalFinalCost,
     final_date,
     kitsku,
-    source
+    source,
+    Title,
+    OrderId,
+    LocationId
 )
 SELECT
     PRODUCT_CODE AS final_sku,
@@ -17,6 +20,9 @@ SELECT
     (UNIT_PRICE * ACTUAL_QUANTITY) AS TotalFinalPrice,
     (UNIT_COST * ACTUAL_QUANTITY) AS TotalFinalCost,
     DELIVERY_DATE AS final_date,
-    NULL AS kitsku,
+    KIT_PRODUCT_CODE AS kitsku,
     'maginus' AS source
+    NULL AS Title,
+    SALES_DOCUMENT_NUM AS OrderId,
+    WarehouseKey AS LocationId
 FROM [MaginusOMS].[dbo].[PICK_DESPATCH_ITEM];
