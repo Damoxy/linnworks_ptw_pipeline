@@ -15,7 +15,10 @@ INSERT INTO [linnworks].[lw].[final_orderitems] (
 SELECT
     PRODUCT_CODE AS final_sku,
     ACTUAL_QUANTITY AS final_quantity,
-    (UNIT_PRICE - (VAT_AMOUNT/ACTUAL_QUANTITY)) AS final_price,
+    (CASE 
+         WHEN ACTUAL_QUANTITY = 0 THEN 0 
+         ELSE (UNIT_PRICE - (VAT_AMOUNT / ACTUAL_QUANTITY))
+     END) AS final_price,
     UNIT_COST AS final_cost,
     (UNIT_PRICE * ACTUAL_QUANTITY) - VAT_AMOUNT AS TotalFinalPrice,
     (UNIT_COST * ACTUAL_QUANTITY) AS TotalFinalCost,
