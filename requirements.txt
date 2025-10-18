@@ -1,5 +1,9 @@
 pandas==2.1.0
-pymssql==2.2.2
-requests==2.31.0
 linnworks-api-python==0.2.5
+cloud-sql-python-connector==0.9.3
+google-cloud-sql-connector==0.9.3  
+flask==3.0.3
+requests==2.32.5
+pymssql==2.3.8
+
 
