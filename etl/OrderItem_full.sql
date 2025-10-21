@@ -6,7 +6,7 @@
         parent.SKU AS ParentSKU,
         parent.Quantity AS ParentQty,
         parent.UnitCost AS ParentUnitCost,
-        parent.PricePerUnit - parent.DiscountValue AS ParentSellPrice,
+        parent.PricePerUnit - (parent.DiscountValue/parent.Quantity) AS ParentSellPrice,
         parent.Tax AS ParentTax,
         parent.TaxRate AS ParentTaxRate,
         parent.CostIncTax AS ParentTotalIncTax,
@@ -64,7 +64,7 @@ SubItems AS (
         sub.SKU,
         sub.Quantity,
         sub.UnitCost,
-        sub.PricePerUnit - sub.DiscountValue AS sub.PricePerUnit,/*does this output as the correct name?*/
+        sub.PricePerUnit - (sub.DiscountValue/sub.Quantity) AS sub.PricePerUnit,/*does this output as the correct name?*/
         sub.Tax,
         sub.TaxRate,
         sub.CostIncTax,
