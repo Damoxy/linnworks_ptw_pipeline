@@ -1,4 +1,4 @@
-;WITH ParentItems AS (
+WITH ParentItems AS (
     SELECT
         parent.OrderId,
         parent.ItemId AS ParentItemId,
@@ -6,7 +6,7 @@
         parent.SKU AS ParentSKU,
         parent.Quantity AS ParentQty,
         parent.UnitCost AS ParentUnitCost,
-        parent.PricePerUnit - (parent.DiscountValue/parent.Quantity) AS ParentSellPrice,
+        parent.PricePerUnit - (parent.DiscountValue / NULLIF(parent.Quantity, 0)) AS PricePerUnit,
         parent.Tax AS ParentTax,
         parent.TaxRate AS ParentTaxRate,
         parent.CostIncTax AS ParentTotalIncTax,
@@ -50,7 +50,7 @@ SubItems AS (
         p.ParentSKU,
         p.ParentQty,
         p.ParentUnitCost,
-        p.ParentSellPrice,
+        p.PricePerUnit AS ParentSellPrice,
         p.ParentTax,
         p.ParentTaxRate,
         p.ParentTotalIncTax,
@@ -64,7 +64,7 @@ SubItems AS (
         sub.SKU,
         sub.Quantity,
         sub.UnitCost,
-        sub.PricePerUnit - (sub.DiscountValue/sub.Quantity) AS sub.PricePerUnit,/*does this output as the correct name?*/
+        sub.PricePerUnit - (sub.DiscountValue / NULLIF(sub.Quantity, 0)) AS PricePerUnit,
         sub.Tax,
         sub.TaxRate,
         sub.CostIncTax,
