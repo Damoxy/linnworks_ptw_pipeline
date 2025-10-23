@@ -35,13 +35,14 @@ def process_csv_gcs(request):
     SQL_DATABASE = os.getenv("SQL_DATABASE")
 
     try:
-        conn = pymssql.connect(server=SQL_SERVER,
-                               user=SQL_USER,
-                               password=SQL_PASSWORD,
-                               database=SQL_DATABASE)
+        conn = pymssql.connect(
+            server=SQL_SERVER,
+            user=SQL_USER,
+            password=SQL_PASSWORD,
+            database=SQL_DATABASE
+        )
         cursor = conn.cursor()
-        
-        # Fetch existing pkOrderIDs
+
         cursor.execute("SELECT pkOrderID FROM [linnworks].[staging].[processed_orders]")
         existing_ids = set(row[0] for row in cursor.fetchall())
 
@@ -49,6 +50,8 @@ def process_csv_gcs(request):
         df_new = df_combined[~df_combined['pkOrderID'].isin(existing_ids)]
 
         if df_new.empty:
+            cursor.close()
+            conn.close()
             return "No new rows to insert."
 
         # Prepare for bulk insert
@@ -57,7 +60,6 @@ def process_csv_gcs(request):
         (pkOrderID, dProcessedOn, dReceivedDate)
         VALUES (%s, %s, %s)
         """
-        cursor.fast_executemany = True
         data_to_insert = df_new[['pkOrderID', 'dProcessedOn', 'dReceivedDate']].values.tolist()
         cursor.executemany(insert_sql, data_to_insert)
         conn.commit()
