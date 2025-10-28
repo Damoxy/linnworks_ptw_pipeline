@@ -1,5 +1,6 @@
 INSERT INTO [lw].[Order_sales] (
     OrderDate,
+    DispatchDate
     ItemID,
     UnitCost,
     TotalCost,
@@ -22,6 +23,9 @@ SELECT
     -- OrderDate (convert DateKey to datetime)
     CONVERT(DATETIME, 
             STUFF(STUFF(CAST(fs.DateKey AS CHAR(8)), 5, 0, '/'), 8, 0, '/') + ' 00:00:00') AS OrderDate,
+     
+    -- Order DispatchDate
+    fs.DispatchDate AS DispatchDate,
 
     -- ItemID: use Product_Code instead of ProductKey
     dp.Product_Code AS ItemID,
