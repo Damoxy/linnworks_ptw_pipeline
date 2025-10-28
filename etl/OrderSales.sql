@@ -1,5 +1,6 @@
 INSERT INTO [linnworks].[lw].[Order_sales] (
     OrderDate,
+    DispatchDate,
     itemID,
     UnitCost,
     TotalCost,
@@ -20,7 +21,8 @@ INSERT INTO [linnworks].[lw].[Order_sales] (
 )
 SELECT DISTINCT
     TRY_CAST(O.dReceivedDate AS DATETIME) AS OrderDate,
-    
+    TRY_CAST(O.dProcessedOn AS DATETIME) AS DispatchDate,
+
     CASE 
         WHEN OI.SubItemSKU IS NOT NULL AND LTRIM(RTRIM(OI.SubItemSKU)) <> '' 
         THEN OI.SubItemSKU
