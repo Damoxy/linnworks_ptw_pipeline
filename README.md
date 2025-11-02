@@ -3,42 +3,61 @@
 ![Architecture](img/arhci_img.jpg)  
 
 ## Overview
-This project implements an **end-to-end data pipeline** for **ingesting, transforming, and delivering Linnworks data** for reporting and analytics. The pipeline ensures that raw data from Linnworks is:
+This project delivers an **end-to-end data pipeline** for **ingesting, transforming, and reporting Linnworks data** using Google Cloud Platform.  
+It enables a seamless flow of data from Linnworks to **BigQuery** and **Power BI**, ensuring accurate, timely, and actionable insights.
 
-- Efficiently ingested through APIs and streams  
-- Cleaned, transformed, and standardized for analytics  
-- Delivered to **BigQuery** for consumption by **Power BI dashboards**  
-
-The goal is to provide a robust, automated, and maintainable system that enables business teams to generate insights.
+The pipeline is designed for:
+- **Automated ingestion** of both real-time streams and API data  
+- **Centralized transformation** and convergence in GCP SQL  
+- **Scalable analytics** powered by BigQuery and visualized in Power BI  
 
 ---
 
 ## Architecture
-The pipeline follows a classic **ETL (Extract, Transform, Load) workflow**, with the following stages:  
+The system follows a modern **ETL** architecture with three primary layers:
 
-1. **Data Ingestion** – Collect data from Linnworks via APIs and streams, using Airbyte and Google Apps Scripts.  
-2. **Data Transformation** – Process and standardize raw data in GCP SQL using ETL scripts and SQL job agents.  
-3. **Data Delivery** – Load processed data into BigQuery for downstream analytics and visualization in Power BI.  
+1. **Streams Ingestion** – Captures real-time data from Linnworks streams  
+2. **API Ingestion** – Collects additional data from Linnworks APIs on a schedule  
+3. **Transformation & Reporting** – Merges, transforms, and publishes data for analytics  
 
-![Architecture](img/arhci_img.jpg)  
+![Architecture](img/arhci_img.jpg)
 
 ---
 
 ## Data Flow
 
-### 1. Data Ingestion
-- Data from Linnworks is streamed via **Airbyte** connectors and extracted using **Apps Scripts**.  
-- Raw data is stored in **staging tables** in GCP SQL.  
-- The process supports incremental and full data loads.  
+### 1. Streams Ingestion
+- Real-time data is streamed from **Linnworks Streams** via **Airbyte**.  
+- Data lands in **GCP SQL staging tables** for temporary storage.  
+- **ETL scripts** (Python + SQL) process and structure the streamed data for integration.  
 
-### 2. Data Transformation
-- **ETL scripts** transform and clean data: removing duplicates, normalizing formats, and denormalizing tables where necessary from Json to relational structure etc 
-- Transformation scripts are executed via **Job agents** in GCP SQL.  
-- Denormalized tables are designed for efficient querying and analytics.  
+**Flow:**  
+`Linnworks Streams → Airbyte → GCP SQL (Staging Tables) → ETL Script`
 
-### 3. Data Delivery
-- Transformed tables are loaded into **BigQuery**.  
-- Selected tables are exposed to **Power BI dashboards** for reporting.  
+---
+
+### 2. API Ingestion
+- Batch data is retrieved from the **Linnworks API** using a **Cloud Scheduler**.  
+- Scheduler triggers **Google Cloud Run** jobs to extract and prepare data.  
+- API data complements streamed data for complete coverage.  
+
+**Flow:**  
+`Linnworks API → Cloud Scheduler → Google Cloud Run`
+
+---
+
+### 3. Transformation & Reporting
+- Both ingestion sources converge in a **Data Convergence** layer.  
+- A **SQL Job Agent** executes scheduled transformations and merges within **GCP SQL (Transformed Tables)**.  
+- Selected datasets are published to **BigQuery** for analytics and **Power BI** dashboards.  
+- Performance and reliability are tracked via **Cloud Monitoring**.  
+
+**Flow:**  
+`Data Convergence → SQL Job Agent → GCP SQL (Transformed Tables) → BigQuery → Power BI`  
+`↳ Cloud Monitoring for observability`
+
+---
+
 
 
 ---
