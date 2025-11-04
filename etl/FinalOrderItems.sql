@@ -67,6 +67,6 @@ SELECT DISTINCT
     OI.ParentTitle,
     OI.OrderId,
     OI.LocationId
-FROM [linnworks].[staging].[processed_orders] O
-JOIN [linnworks].[lw].[OrderItem_full] OI
+FROM [linnworks].[lw].[OrderItem_full] OI
+LEFT JOIN [linnworks].[staging].[processed_orders] O
     ON O.pkOrderId = OI.OrderId;

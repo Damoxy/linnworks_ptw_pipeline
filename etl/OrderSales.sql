@@ -1,7 +1,7 @@
-INSERT INTO [lw].[Order_sales] (
+INSERT INTO [linnworks].[lw].[Order_sales] (
     OrderDate,
     DispatchDate,
-    ItemID,
+    itemID,
     UnitCost,
     TotalCost,
     UnitPrice,
@@ -17,12 +17,38 @@ INSERT INTO [lw].[Order_sales] (
     FkLocationId,
     ItemSource,
     fkStockItemId,
-    Source
+    source
 )
-SELECT
-    -- OrderDate (convert DateKey to datetime)
-    CONVERT(DATETIME,
-            STUFF(STUFF(CAST(fs.DateKey AS CHAR(8)), 5, 0, '/'), 8, 0, '/') + ' 00:00:00') AS OrderDate,
-     
-    -- Order DispatchDate
-    fs.Despatch_Date AS DispatchDate,
+SELECT DISTINCT
+    TRY_CAST(O.dReceivedDate AS DATETIME) AS OrderDate,
+    TRY_CAST(O.dProcessedOn AS DATETIME) AS DispatchDate,
+
+    CASE
+        WHEN OI.SubItemSKU IS NOT NULL AND LTRIM(RTRIM(OI.SubItemSKU)) <> ''
+            THEN OI.SubItemSKU
+        ELSE OI.ParentSKU
+    END AS itemID,
+   
+    OI.ParentUnitCost AS UnitCost,
+    OI.ParentUnitCost * OI.ParentQty AS TotalCost,
+    OI.ParentSellPrice AS UnitPrice,
+    OI.ParentSellPrice * OI.ParentQty AS TotalPrice,
+    OI.ParentTax / NULLIF(OI.ParentQty, 0) AS UnitTax,
+    OI.ParentTax AS TotalTax,
+    OI.ParentTotalIncTax AS TotalIncTax,
+    OI.ParentQty AS Quantity,
+   
+    OI.SubItemSKU AS SubItemSKU,
+    OI.SubItemUnitCost AS SubItemUnitCost,
+    OI.SubItemQty AS SubItemQty,
+   
+    CAST(OI.OrderId AS VARCHAR(36)) AS fkOrderId,
+    OI.LocationId AS FkLocationId,
+    OI.ParentItemSource AS ItemSource,
+    CAST(OI.ParentStockItemId AS VARCHAR(36)) AS fkStockItemId,
+    'linnworks' AS source
+FROM
+    [linnworks].[lw].[OrderItem_full] OI
+LEFT JOIN
+    [linnworks].[staging].[processed_orders] O
+    ON CAST(O.pkOrderID AS VARCHAR(255)) = CAST(OI.OrderId AS VARCHAR(255));
